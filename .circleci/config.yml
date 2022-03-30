@@ -19,7 +19,7 @@ jobs:
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker build -t circle-ci-demo-doc-image .
       - run: docker image ls
-      - run: docker push gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
+      - run: docker push gssdockertest/circle-ci-demo-doc-image:latest
 
 #      - run: ./gradlew clean --refresh-dependencies build -Dimage=gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
