@@ -18,8 +18,9 @@ jobs:
           name: Login to DockerHub
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker build -t circle-ci-demo-doc-image .
+      - run: docker tag circle-ci-demo-doc-image:latest gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
       - run: docker image ls
-      - run: docker push gssdockertest/circle-ci-demo-doc-image:latest
+      - run: docker push gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
 #      - run: ./gradlew clean --refresh-dependencies build -Dimage=gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
