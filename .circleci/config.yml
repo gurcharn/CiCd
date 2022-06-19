@@ -39,7 +39,7 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: us-east-1
-          registry-id: 615347171934
+          registry-id: AWS_ECR_REGISTRY_ID
           context: myContext
           create-repo: true
           profile-name: myProfileName
