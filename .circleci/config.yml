@@ -41,7 +41,7 @@ workflows:
           region: us-east-1
           registry-id: AWS_ECR_REGISTRY_ID
           context: myContext
-          create-repo: true
+          create-repo: false
           profile-name: myProfileName
           repo: cicd
           tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
