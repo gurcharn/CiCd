@@ -1,4 +1,7 @@
 version: 2
+orbs:
+  # https://circleci.com/developer/orbs/orb/circleci/aws-ecr
+  aws-ecr: circleci/aws-ecr@6.15.0
 jobs:
   build:
     working_directory: ~/circleci-demo-java-spring
@@ -13,24 +16,25 @@ jobs:
       - run: ./gradlew test
       - run: ./gradlew build -x test
 
-      - setup_remote_docker
-      - run:
-          name: Login to DockerHub
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker build -t circle-ci-demo-doc-image .
-      - run: docker tag circle-ci-demo-doc-image:latest gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
-      - run: docker image ls
-      - run: docker push gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
+#      - setup_remote_docker
+#      - run:
+#          name: Login to DockerHub
+#          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+#      - run: docker build -t circle-ci-demo-doc-image .
+#      - run: docker tag circle-ci-demo-doc-image:latest gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
+#      - run: docker image ls
+#      - run: docker push gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
 #      - run: ./gradlew clean --refresh-dependencies build -Dimage=gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
       - store_artifacts:
           path: build/libs/CiCd-0.0.1-SNAPSHOT.jar
 
-#      - aws-ecr/build-and-push-image:
-#          repo: slackcicd
-#          tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
-#          dockerfile: build/Dockerfile.prod
-#          path: .
-#          requires:
-#            - test
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          repo: cicd
+          tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
+          dockerfile: Dockerfile
+          path: .
