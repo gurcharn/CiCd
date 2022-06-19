@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   # https://circleci.com/developer/orbs/orb/circleci/aws-ecr
-  aws-ecr: circleci/aws-ecr@6.15.0
+  aws-ecr: circleci/aws-ecr@8.1.2
 jobs:
   build:
     working_directory: ~/circleci-demo-java-spring
@@ -38,7 +38,7 @@ workflows:
 #          account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_REGION
+          region: us-east-1
           context: myContext
           create-repo: true
           profile-name: myProfileName
