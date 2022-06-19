@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 orbs:
   # https://circleci.com/developer/orbs/orb/circleci/aws-ecr
   aws-ecr: circleci/aws-ecr@8.0.0
