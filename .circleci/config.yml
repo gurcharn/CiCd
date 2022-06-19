@@ -1,7 +1,7 @@
 version: 2
 orbs:
   # https://circleci.com/developer/orbs/orb/circleci/aws-ecr
-  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecr: circleci/aws-ecr@8.0.0
 jobs:
   build:
     working_directory: ~/circleci-demo-java-spring
