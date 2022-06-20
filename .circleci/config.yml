@@ -14,7 +14,7 @@ jobs:
 
       - run: ./gradlew clean --refresh-dependencies
       - run: ./gradlew test
-      - run: ./gradlew build -x test
+#      - run: ./gradlew build -x test
 
 #      - setup_remote_docker
 #      - run:
@@ -25,38 +25,38 @@ jobs:
 #      - run: docker image ls
 #      - run: docker push gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
-      - setup_remote_docker
-      - run:
-          name: Login to AWS ECR
-          command: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 615347171934.dkr.ecr.us-east-1.amazonaws.com
-      - run: docker build -t cicd .
-      - run: docker tag cicd:latest 615347171934.dkr.ecr.us-east-1.amazonaws.com/cicd:latest
-      - run: docker image ls
-      - run: docker push 615347171934.dkr.ecr.us-east-1.amazonaws.com/cicd:latest
-
-      - run: ./gradlew clean --refresh-dependencies build -Dimage=gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
+#      - setup_remote_docker
+#      - run:
+#          name: Login to AWS ECR
+#          command: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 615347171934.dkr.ecr.us-east-1.amazonaws.com
+#      - run: docker build -t cicd .
+#      - run: docker tag cicd:latest 615347171934.dkr.ecr.us-east-1.amazonaws.com/cicd:latest
+#      - run: docker image ls
+#      - run: docker push 615347171934.dkr.ecr.us-east-1.amazonaws.com/cicd:latest
+#
+#      - run: ./gradlew clean --refresh-dependencies build -Dimage=gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
       - store_artifacts:
           path: build/libs/CiCd-0.0.1-SNAPSHOT.jar
 
-#workflows:
-#  build_and_push_image:
-#    jobs:
-#      - build
-#
-#      # Envs: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_ECR_ACCOUNT_URL
-#      - aws-ecr/build-and-push-image:
-##          account-url: AWS_ECR_ACCOUNT_URL
-#          aws-access-key-id: AWS_ACCESS_KEY_ID
-#          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-#          region: us-east-1
-#          registry-id: AWS_ECR_REGISTRY_ID
-#          context: myContext
-#          create-repo: false
-#          profile-name: myProfileName
-#          repo: cicd
-#          tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
-#          dockerfile: /Dockerfile
-#          path: .
-#          requires:
-#            - build
+workflows:
+  build_and_push_image:
+    jobs:
+      - build
+
+      # Envs: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_ECR_ACCOUNT_URL
+      - aws-ecr/build-and-push-image:
+#          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: us-east-1
+          registry-id: AWS_ECR_REGISTRY_ID
+          context: myContext
+          create-repo: false
+          profile-name: myProfileName
+          repo: cicd
+          tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
+          dockerfile: /Dockerfile
+          path: .
+          requires:
+            - build
