@@ -51,9 +51,9 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: us-east-1
           registry-id: AWS_ECR_REGISTRY_ID
-          context: myContext
+          context: ci-cd-demo
           create-repo: false
-          profile-name: myProfileName
+          profile-name: default
           repo: cicd
           tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
           dockerfile: /Dockerfile
