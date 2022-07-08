@@ -14,7 +14,7 @@ jobs:
 
       - run: ./gradlew clean --refresh-dependencies
       - run: ./gradlew test
-      - run: ./gradlew build -x test
+#      - run: ./gradlew build -x test
 
 #      - setup_remote_docker
 #      - run:
