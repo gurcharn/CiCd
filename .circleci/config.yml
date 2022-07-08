@@ -37,7 +37,7 @@ jobs:
 #      - run: ./gradlew clean --refresh-dependencies build -Dimage=gssdockertest/circle-ci-demo-doc-image:$CIRCLE_BUILD_NUM
 
       - store_artifacts:
-          path: circle-build-temp/libs/CiCd-0.0.1-SNAPSHOT.jar
+          path: build/libs/CiCd-0.0.1-SNAPSHOT.jar
 
 workflows:
   build_and_push_image:
